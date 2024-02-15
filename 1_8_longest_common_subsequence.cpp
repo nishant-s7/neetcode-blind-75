@@ -7,17 +7,18 @@ using namespace std;
 class Solution {
 public:
   int longestConsecutive(vector<int>& nums) {
+    if (nums.size() == 0) return 0;
     int lcs = 0;
     unordered_set<int> numSet;
     for (auto num : nums) {
       numSet.insert(num);
     }
 
-    for (auto num : nums) {
-      if (numSet.count(num - 1) == 0) {
+    for (auto num : numSet) {
+      if (numSet.find(num - 1) == numSet.end()) {
         int len = 1;
-        int seq = num + 1;
-        while (numSet.count(seq) == 1) {
+        int seq = num;
+        while (numSet.find(seq + 1) != numSet.end()) {
           len++;
           seq++;
         }
